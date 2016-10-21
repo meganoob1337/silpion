@@ -68,8 +68,28 @@ var FormStore = assign({}, EventEmitter.prototype, {
   },
 
   _updateField(id,value) {
-    console.log(id,value);
     form[id]['value'] = value;
+  },
+  _updateDate(id,value) {
+    var today = new Date();
+    var valueDate = new Date(value);
+    console.log(id,value);
+    if(id == 'date1') {
+      if(today > valueDate){
+        form[id]['value'] = today.toISOString();
+      }
+      else {
+        form[id]['value'] = value;
+      }
+    }
+    if(id == 'date2') {
+      if((today > valueDate) && !(valueDate > new Date(form['date1']['value']))){
+        form[id]['value'] = today.toISOString();
+      }
+      else {
+        form[id]['value'] = value;
+      }
+    }
   }
 
 
@@ -82,6 +102,10 @@ AppDispatcher.register( function( payload ) {
 
         case AppConstants.UPDATE_ELEMENT:
           FormStore._updateField(payload.id,payload.value);
+          FormStore._emitChange();
+          break;
+        case AppConstants.UPDATE_DATE:
+          FormStore._updateDate(payload.id,payload.value);
           FormStore._emitChange();
           break;
 

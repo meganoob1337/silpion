@@ -9,6 +9,13 @@ var AppActions = {
       id:id,
       value:value
     });
+  },
+  updateDate: function(id,value) {
+    AppDispatcher.dispatch({
+      eventName: AppConstants.UPDATE_DATE,
+      id:id,
+      value:value
+    });
   }
 };
 

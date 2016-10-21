@@ -8,7 +8,7 @@ var Datum = React.createClass({
     this.value = new Date().toISOString();
   },
   handleChange: function(value) {
-    AppActions.updateElement(this.props.data.id,value)
+    AppActions.updateDate(this.props.data.id,value);
   },
 
   render: function() {
