@@ -3,12 +3,11 @@ var AppConstants = require('../constants/AppConstants');
 
 var AppActions = {
 
-  updateElement: function(id,target) {
-    console.log(id,target);
+  updateElement: function(id,value) {
     AppDispatcher.dispatch({
       eventName: AppConstants.UPDATE_ELEMENT,
       id:id,
-      target:target
+      value:value
     });
   }
 };

@@ -4,33 +4,33 @@ var RB = require('react-bootstrap');
 
 var Name = React.createClass({
 
-    getInitialState: function() {
-      return this.props;
-    },
+
     getValidationState: function() {
-      return "success";
+      return "error";
     },
+
     handleChange: function(e) {
-      AppActions.updateElement(this.state.id,e.target);
+      AppActions.updateElement(this.props.data.id,e.target.value);
     },
 
     render: function(){
-      return (
+      return this.props.data ? (
           <RB.FormGroup
-            controlId={this.state.id}
+            controlId={this.props.data.id}
             validationState={this.getValidationState()}
 
           >
-            <RB.ControlLabel></RB.ControlLabel>
+            <RB.ControlLabel>{this.props.data.label}</RB.ControlLabel>
             <RB.FormControl
               type="text"
-              value={this.state.value}
-              placeholder={this.state.placeholder ? this.state.placeholder : ""}
+              name={this.props.data.id}
+              value={this.props.data.value}
+              placeholder={this.props.data.placeholder ? this.props.data.placeholder : ""}
               onChange={this.handleChange}
             />
             <RB.FormControl.Feedback />
           </RB.FormGroup>
-      )
+      ) : <div></div>;
     }
 });
 
