@@ -16,6 +16,11 @@ var AppActions = {
       id:id,
       value:value
     });
+  },
+  SubmitButtonClicked: function() {
+    AppDispatcher.dispatch({
+      eventName: AppConstants.SUBMIT_CLICKED
+    });
   }
 };
 

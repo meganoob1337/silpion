@@ -31,7 +31,7 @@ var AnmeldeFormular = React.createClass({
       <Name value="test" label="Test" id="nameTest" />
       <Datum data={this.state.date1}/>
       <Datum data={this.state.date2}/>
-      <SubmitButton data={{'value':'submit', 'disabled':true}} />
+      <SubmitButton data={{'value':'submit', 'disabled':false}} />
       </RB.Form>
       </div>
     );

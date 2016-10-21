@@ -90,6 +90,16 @@ var FormStore = assign({}, EventEmitter.prototype, {
         form[id]['value'] = value;
       }
     }
+  },
+  _postFormIfValid: function() {
+
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+    xmlhttp.open("POST", "http://127.0.0.1:3000");
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlhttp.send(JSON.stringify(form));
+  },
+  _validate: function() {
+    console.log('validation required');
   }
 
 
@@ -106,6 +116,11 @@ AppDispatcher.register( function( payload ) {
           break;
         case AppConstants.UPDATE_DATE:
           FormStore._updateDate(payload.id,payload.value);
+          FormStore._emitChange();
+          break;
+        case AppConstants.SUBMIT_CLICKED:
+          FormStore._validate();
+          FormStore._postFormIfValid();
           FormStore._emitChange();
           break;
 
