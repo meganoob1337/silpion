@@ -45,7 +45,7 @@ gulp
       //   presets: ['es2015','react']
       // }))
 
-      .pipe(concat('main.js'))
+      // .pipe(concat('main.js'))
       // .pipe(gp_uglify())
       .pipe(plumber.stop())
       .pipe(gulp.dest('dist/js'))

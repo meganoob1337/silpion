@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Form = require('./components/Form');
+var AnmeldeFormular = require('./components/AnmeldeFormular');
 
 
 ReactDOM.render(
-      <Form />,
+      <AnmeldeFormular />,
       document.getElementById("formcontainer")
 );
