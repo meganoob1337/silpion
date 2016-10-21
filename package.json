@@ -6,9 +6,9 @@
   "dependencies": {
     "flux": "^2.0.3",
     "object-assign": "2.0.0",
-    "react": "^0.14.0",
-    "keymirror": "~0.1.0",
-    "node-fetch": "^1.6.0",
+    "react": "^15.3.2",
+    "react-bootstrap": "^0.30.5",
+    "react-dom": "^15.3.2"
   },
   "devDependencies": {
     "babel-plugin-react-transform": "^2.0.2",

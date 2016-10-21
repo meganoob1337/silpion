@@ -89,7 +89,7 @@ gulp
 
   // build the application
   .task('run', ['development', 'copy', 'connect', 'open'])
-  .task('dev, [development, 'copy']')
+  .task('dev', ['development', 'copy'])
   .task('prod', ['production', 'copy'])
 
   // watch for source changes
