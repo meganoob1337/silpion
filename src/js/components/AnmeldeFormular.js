@@ -1,5 +1,7 @@
 var React = require('react');
 var RB = require('react-bootstrap');
+var FormStore = require('../stores/FormStore');
+var Name = require('./partials/Name');
 var AnmeldeFormular = React.createClass({
   getInitialState() {
     return {
@@ -21,34 +23,9 @@ var AnmeldeFormular = React.createClass({
   render() {
     return (
       <RB.Form inline>
-        <RB.FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <RB.ControlLabel>Working example with validation</RB.ControlLabel>
-          <RB.FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <RB.FormControl.Feedback />
-          <RB.HelpBlock>Validation is based on string length.</RB.HelpBlock>
-        </RB.FormGroup>
-        <RB.FormGroup
-          controlId="formBasicText2"
-          validationState={this.getValidationState()}
-        >
-          <RB.ControlLabel>Working example with validation</RB.ControlLabel>
-          <RB.FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <RB.FormControl.Feedback />
-          <RB.HelpBlock>Validation is based on string length.</RB.HelpBlock>
-        </RB.FormGroup>
+      <Name value="test" id="nameTest" />
+
+
       </RB.Form>
     );
   }

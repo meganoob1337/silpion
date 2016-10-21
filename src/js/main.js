@@ -4,6 +4,6 @@ var AnmeldeFormular = require('./components/AnmeldeFormular');
 
 
 ReactDOM.render(
-      <AnmeldeFormular />,
+      <AnmeldeFormular/>,
       document.getElementById("formcontainer")
 );
