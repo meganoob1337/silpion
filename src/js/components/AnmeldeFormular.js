@@ -4,6 +4,7 @@ var FormStore = require('../stores/FormStore');
 var Name = require('./partials/Name');
 var Address = require('./partials/Address');
 var Datum = require('./partials/Datum');
+var SubmitButton = require('./partials/SubmitButton');
 var AnmeldeFormular = React.createClass({
 
   getInitialState: function() {
@@ -30,7 +31,7 @@ var AnmeldeFormular = React.createClass({
       <Name value="test" label="Test" id="nameTest" />
       <Datum data={this.state.date1}/>
       <Datum data={this.state.date2}/>
-
+      <SubmitButton data={{'value':'submit', 'disabled':true}} />
       </RB.Form>
       </div>
     );

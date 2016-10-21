@@ -8,7 +8,6 @@ var Datum = React.createClass({
     this.value = new Date().toISOString();
   },
   handleChange: function(value) {
-    console.log(value);
     AppActions.updateElement(this.props.data.id,value)
   },
 

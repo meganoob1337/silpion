@@ -1,11 +1,11 @@
 var React = require('react');
 var AppActions = require('../../actions/AppActions');
 var RB = require('react-bootstrap');
+var str = require('string-validator');
 
 var Street = React.createClass({
 
   getValidationState: function() {
-    return "success";
   },
 
   handleChange: function(e) {
