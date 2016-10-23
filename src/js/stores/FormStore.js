@@ -101,12 +101,11 @@ var FormStore = assign({}, EventEmitter.prototype, {
   _postFormIfValid: function() {
 
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://127.0.0.1");
+    xmlhttp.open("POST", "http://localhost:3000");
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify(form));
   },
   _validate: function() {
-    validation.test();
     console.log('validation required');
   }
 
