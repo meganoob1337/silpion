@@ -2,41 +2,48 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var assign = require('object-assign');
+var validation = require('../utils/validation');
 
 var CHANGE_EVENT = 'change';
 var form = {
   'lname' : {
     'label' : 'Name: ',
     'value' : '',
+    'validationState': null,
     'id'    : 'lname',
     'placeholder' : 'Bitte Namen eingeben'
   },
   'fname' : {
     'label' : 'Vorname: ',
     'value' : '',
+    'validationState': null,
     'id'    : 'fname',
     'placeholder' : 'Bitte Vornamen eingeben'
   },
   'street' : {
     'label' : 'Straße: ',
     'value' : '',
+    'validationState': null,
     'id'    : 'street',
     'placeholder' : 'Bitte Straße eingeben'
   },
   'number' : {
     'label' : 'Hausnummer: ',
     'value' : '',
+    'validationState': null,
     'id'    : 'number',
     'placeholder' : ''
   },
   'date1' : {
     'label' : 'Anreisedatum',
     'value' : '',
+    'validationState': null,
     'id'    : 'date1'
   },
   'date2' : {
     'label' : 'Abreisedatum',
     'value' : '',
+    'validationState': null,
     'id'    : 'date2'
   }
 
@@ -94,11 +101,12 @@ var FormStore = assign({}, EventEmitter.prototype, {
   _postFormIfValid: function() {
 
     var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://127.0.0.1:3000");
+    xmlhttp.open("POST", "http://127.0.0.1");
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify(form));
   },
   _validate: function() {
+    validation.test();
     console.log('validation required');
   }
 

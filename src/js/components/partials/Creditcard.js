@@ -12,6 +12,9 @@ var Creditcard = React.createClass({
     handleChange: function(e) {
       AppActions.updateElement(this.props.data.id,e.target.value);
     },
+    handleBlur: function(e) {
+      console.log("blur", e);
+    },
 
     render: function(){
       return this.props.data ? (
@@ -27,6 +30,7 @@ var Creditcard = React.createClass({
               value={this.props.data.value}
               placeholder={this.props.data.placeholder ? this.props.data.placeholder : ""}
               onChange={this.handleChange}
+              onBlur={this.handleBlur}
             />
             <RB.FormControl.Feedback />
           </RB.FormGroup>
