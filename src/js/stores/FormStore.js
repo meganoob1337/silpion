@@ -3,10 +3,12 @@ var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var assign = require('object-assign');
 var validation = require('../utils/validation');
+var isSubmitted = false;
 var buttonState =  {
   'submitAllowed' : false,
   'value': 'Abschicken',
-  'buttonEnabled' : true
+  'buttonEnabled' : true,
+  'status': 'default'
 }
 var CHANGE_EVENT = 'change';
 var form = {
@@ -122,11 +124,11 @@ var FormStore = assign({}, EventEmitter.prototype, {
       }
     }
     if(id == 'date2') {
-      if((today > valueDate) && !(valueDate > new Date(form['date1']['value']))){
-        form[id]['value'] = today.toISOString();
-      }
-      else if (!(today > valueDate) && !(valueDate > new Date(form['date1']['value']))) {
+       if (!(valueDate > new Date(form['date1']['value']))) {
         form[id]['value'] = new Date(form['date1']['value']).toISOString();
+      }
+      else if((today >= valueDate) && !(valueDate > new Date(form['date1']['value']))){
+        form[id]['value'] = today.toISOString();
       }
       else {
         form[id]['value'] = value;
@@ -135,19 +137,35 @@ var FormStore = assign({}, EventEmitter.prototype, {
   },
 
   _postFormIfValid: function() {
-    if(buttonState.submitAllowed) {
+    if(buttonState.submitAllowed && !isSubmitted) {
       fetch('http://localhost:3000', {
       	method: 'post',
-      	body: JSON.stringify(form)
-      }).then(alert("Formular erfolgreich übermittelt!"));
-      // var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-      // xmlhttp.open("POST", "http://localhost:3000");
-      // xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      // xmlhttp.send(JSON.stringify(form));
+      	body: JSON.stringify(FormStore._getSubmitJson())
+      }).then(function() {
+        alert("Formular erfolgreich übermittelt!");
+        buttonState.buttonEnabled = false;
+        buttonState.status = "submitted";
+        buttonState.submitAllowed = false;
+        buttonState.value = "Erfolgreich Abgeschickt!"
+        isSubmitted = true;
+        FormStore._emitChange();
+      }
+      );
+
     }
-    else {
+    else if(isSubmitted) {
+
+    } else  {
       alert("Bitte korrigieren sie die markierten Eingabefelder");
     }
+  },
+  _getSubmitJson: function() {
+    var res = {}
+    for(var item in form) {
+      var field = form[item];
+      res[field.id] = field.value;
+    }
+    return res;
   },
   _validate: function() {
       var res = true;
@@ -156,6 +174,8 @@ var FormStore = assign({}, EventEmitter.prototype, {
         FormStore._setValidationState(field.id,field.value ? validation.getValidationFunction(field.type)(field.value) : "error") ;
         if(field.validationState != "success") {
           res = false;
+          buttonState.status = "error";
+
         }
       }
     buttonState.submitAllowed = res;
@@ -166,12 +186,13 @@ var FormStore = assign({}, EventEmitter.prototype, {
           var field = form[item];
           if(field.validationState != "success") {
             res = false;
+            buttonState.status = "error";
           }
         }
       buttonState.submitAllowed = res;
   },
   getButtonState: function() {
-    return buttonState.submitAllowed;
+    return buttonState;
   },
   _validateElement: function(id) {
     var field = form[id];
@@ -209,6 +230,7 @@ AppDispatcher.register( function( payload ) {
           FormStore._validate();
           FormStore._postFormIfValid();
           FormStore._emitChange();
+
           break;
 
 			FormStore._emitChange();

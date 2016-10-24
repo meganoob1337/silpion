@@ -18,6 +18,7 @@ var AnmeldeFormular = React.createClass({
 
     FormStore.addChangeListener(this._onChange);
   },
+
   componentWillUnmount: function() {
     FormStore.removeChangeListener(this._onChange);
   },
@@ -36,7 +37,7 @@ var AnmeldeFormular = React.createClass({
       <Datum data={this.state.forms.date1}/>
       <Datum data={this.state.forms.date2}/>
       <Creditcard data={this.state.forms.creditcard} />
-      <SubmitButton data={{'value':'submit', 'disabled':false}} />
+      <SubmitButton data={this.state.buttonState} />
       </RB.Form>
       </div>
     );

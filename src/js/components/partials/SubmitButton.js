@@ -9,14 +9,11 @@ var SubmitButton = React.createClass({
   },
 
   render: function() {
-    if(this.props.data.disabled) {
-      return <button disabled> {this.props.data.value}</button>
-
+    var classes = "";
+    if(this.props.data.status == 'submitted'){
+      classes = 'btn-success';
     }
-    else {
-
-      return <button className="btn btn-primary text-center" onClick={this.onClick}> {this.props.data.value}</button>
-    }
+        return <button className={"btn btn-primary text-center " + classes } onClick={this.onClick}> {this.props.data.value}</button>
 
   }
 })

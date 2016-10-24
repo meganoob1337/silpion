@@ -15,13 +15,15 @@ var Datum = React.createClass({
   },
 
   render: function() {
+    var dayLang = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+    var monthLang = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
     return this.props.data ? (
       <RB.FormGroup
       className={this.props.data.id + " date"}
       validationState={this.props.data.validationState}
       >
       <RB.ControlLabel>{this.props.data.label}</RB.ControlLabel>
-      <DatePicker  value={this.props.data.value} onChange={this.handleChange} onBlur={this.handleBlur}/>
+      <DatePicker dayLabels={dayLang} monthLabels={monthLang} calendarPlacement="top" value={this.props.data.value} onChange={this.handleChange} onBlur={this.handleBlur}/>
     </RB.FormGroup>
   )
   : <div></div>
