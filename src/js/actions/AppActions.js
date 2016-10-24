@@ -10,6 +10,12 @@ var AppActions = {
       value:value
     });
   },
+  blurElement: function(id) {
+    AppDispatcher.dispatch({
+      eventName: AppConstants.BLUR_ELEMENT,
+      id:id
+    })
+  },
   updateDate: function(id,value) {
     AppDispatcher.dispatch({
       eventName: AppConstants.UPDATE_DATE,

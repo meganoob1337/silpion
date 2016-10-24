@@ -11,40 +11,46 @@ var form = {
     'value' : '',
     'validationState': null,
     'id'    : 'lname',
-    'placeholder' : 'Bitte Namen eingeben'
+    'placeholder' : 'Bitte Namen eingeben',
+    'type' : 'name'
   },
   'fname' : {
     'label' : 'Vorname: ',
     'value' : '',
     'validationState': null,
     'id'    : 'fname',
-    'placeholder' : 'Bitte Vornamen eingeben'
+    'placeholder' : 'Bitte Vornamen eingeben',
+    'type' : 'name'
   },
   'street' : {
     'label' : 'Straße: ',
     'value' : '',
     'validationState': null,
     'id'    : 'street',
-    'placeholder' : 'Bitte Straße eingeben'
+    'placeholder' : 'Bitte Straße eingeben',
+    'type' : 'name'
   },
   'number' : {
     'label' : 'Hausnummer: ',
     'value' : '',
     'validationState': null,
     'id'    : 'number',
-    'placeholder' : ''
+    'placeholder' : '',
+    'type' : 'number'
   },
   'date1' : {
     'label' : 'Anreisedatum',
     'value' : '',
     'validationState': null,
-    'id'    : 'date1'
+    'id'    : 'date1',
+    'type' : 'name'
   },
   'date2' : {
     'label' : 'Abreisedatum',
     'value' : '',
     'validationState': null,
-    'id'    : 'date2'
+    'id'    : 'date2',
+    'type' : 'name'
   }
 
 };
@@ -69,7 +75,6 @@ var FormStore = assign({}, EventEmitter.prototype, {
 	},
 
   getForm: function() {
-    console.log(JSON.stringify(form));
 
     return form;
   },
@@ -106,7 +111,24 @@ var FormStore = assign({}, EventEmitter.prototype, {
     xmlhttp.send(JSON.stringify(form));
   },
   _validate: function() {
+      for(var item in form) {
+        var field = form[item];
+        field.validationState = field.value ? validation.numberValidation(field.value) : null;
+        form[item] = field;
+      }
+
     console.log('validation required');
+  },
+  _validateElement: function(id) {
+    //TODO set type from element
+    var field = form[id];
+    
+    FormStore._setValidationState(id,field.value ? validation.getValidationFunction(field.type)(field.value) : null) ;
+    console.log(field);
+  },
+  _setValidationState: function(id,state) {
+    console.log(id,state);
+    form[id].validationState = state;
   }
 
 
@@ -119,6 +141,10 @@ AppDispatcher.register( function( payload ) {
 
         case AppConstants.UPDATE_ELEMENT:
           FormStore._updateField(payload.id,payload.value);
+          FormStore._emitChange();
+          break;
+        case AppConstants.BLUR_ELEMENT:
+          FormStore._validateElement(payload.id);
           FormStore._emitChange();
           break;
         case AppConstants.UPDATE_DATE:

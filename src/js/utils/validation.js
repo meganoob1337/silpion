@@ -1,20 +1,28 @@
+var validator = require('string-validator');
+var numericTest = validator.isNumeric();
+var isAlpha = validator.isAlpha();
 var validationFunctions = {
 
-
-  nameValidation: function() {
+  getValidationFunction: function(type) {
+    switch(type) {
+      case 'name' : return this.nameValidation;
+      case 'number' : return this.numberValidation;
+    }
+  },
+  nameValidation: function(str) {
+    return isAlpha(str) ? "success" : "error" ;
+  },
+  streetValidation: function(str) {
 
   },
-  streetValidation: function() {
+  streetNrValidation: function(str) {
 
   },
-  streetNrValidation: function() {
+  creditcardValidation: function(str) {
 
   },
-  creditcardValidation: function() {
-
-  },
-  numberValidation: function() {
-
+  numberValidation: function(str) {
+    return numericTest(str) ? "success" : "error" ;
   }
 }
 

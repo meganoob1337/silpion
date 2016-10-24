@@ -8,10 +8,11 @@ var StrNumber = React.createClass({
 
   getValidationState: function() {
     var numericTest = str.isNumeric();
-    console.log(numericTest(this.props.data.value));
     return this.props.data.value ? numericTest(this.props.data.value) ? "success" : "error" : null;
   },
-
+  handleBlur: function(e) {
+    AppActions.blurElement(this.props.data.id);
+  },
   handleChange: function(e) {
     AppActions.updateElement(this.props.data.id,e.target.value);
   },
@@ -20,7 +21,7 @@ var StrNumber = React.createClass({
     return this.props.data ? (
         <RB.FormGroup
           controlId={this.props.data.id}
-          validationState={this.getValidationState()}
+          validationState={this.props.data.validationState}
 
         >
           <RB.ControlLabel>{this.props.data.label}</RB.ControlLabel>
@@ -29,6 +30,7 @@ var StrNumber = React.createClass({
             value={this.props.data.value}
             placeholder={this.props.data.placeholder ? this.props.data.placeholder : ""}
             onChange={this.handleChange}
+            onBlur={this.handleBlur}
           />
 
           <RB.FormControl.Feedback />

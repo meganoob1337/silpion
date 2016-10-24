@@ -7,7 +7,9 @@ var Street = React.createClass({
 
   getValidationState: function() {
   },
-
+  handleBlur: function(e) {
+    AppActions.blurElement(this.props.data.id);
+  },
   handleChange: function(e) {
     AppActions.updateElement(this.props.data.id,e.target.value);
   },
@@ -25,6 +27,7 @@ var Street = React.createClass({
             value={this.props.data.value}
             placeholder={this.props.data.placeholder ? this.props.data.placeholder : ""}
             onChange={this.handleChange}
+            onBlur={this.handleBlur}
           />
 
           <RB.FormControl.Feedback />

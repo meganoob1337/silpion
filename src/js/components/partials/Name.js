@@ -10,7 +10,7 @@ var Name = React.createClass({
       AppActions.updateElement(this.props.data.id,e.target.value);
     },
     handleBlur: function(e) {
-      console.log("blur", e.target.id);
+      AppActions.blurElement(this.props.data.id);
     },
 
     render: function(){
