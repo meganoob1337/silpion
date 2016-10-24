@@ -3,7 +3,11 @@ var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var assign = require('object-assign');
 var validation = require('../utils/validation');
-var submitAllowed = false;
+var buttonState =  {
+  'submitAllowed' : false,
+  'value': 'Abschicken',
+  'buttonEnabled' : true
+}
 var CHANGE_EVENT = 'change';
 var form = {
   'lname' : {
@@ -109,7 +113,6 @@ var FormStore = assign({}, EventEmitter.prototype, {
   _updateDate(id,value) {
     var today = new Date();
     var valueDate = new Date(value);
-    console.log(id,value);
     if(id == 'date1') {
       if(today > valueDate){
         form[id]['value'] = today.toISOString();
@@ -132,13 +135,19 @@ var FormStore = assign({}, EventEmitter.prototype, {
   },
 
   _postFormIfValid: function() {
-    if(submitAllowed) {
-      var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-      xmlhttp.open("POST", "http://localhost:3000");
-      xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      xmlhttp.send(JSON.stringify(form));
+    if(buttonState.submitAllowed) {
+      fetch('http://localhost:3000', {
+      	method: 'post',
+      	body: JSON.stringify(form)
+      }).then(alert("Formular erfolgreich übermittelt!"));
+      // var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+      // xmlhttp.open("POST", "http://localhost:3000");
+      // xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      // xmlhttp.send(JSON.stringify(form));
     }
-    console.log(document);
+    else {
+      alert("Bitte korrigieren sie die markierten Eingabefelder");
+    }
   },
   _validate: function() {
       var res = true;
@@ -149,7 +158,7 @@ var FormStore = assign({}, EventEmitter.prototype, {
           res = false;
         }
       }
-    submitAllowed = res;
+    buttonState.submitAllowed = res;
   },
   _isFormValid: function() {
         var res = true;
@@ -159,10 +168,10 @@ var FormStore = assign({}, EventEmitter.prototype, {
             res = false;
           }
         }
-      submitAllowed = res;
+      buttonState.submitAllowed = res;
   },
   getButtonState: function() {
-    return submitAllowed;
+    return buttonState.submitAllowed;
   },
   _validateElement: function(id) {
     var field = form[id];

@@ -30,9 +30,11 @@ $large-width: 600px;
       }
   }
   &.date {
-    display:inline-block;
-    width: calc(50% - 40px);
+    @include large-up {
 
+      display:inline-block;
+      width: calc(50% - 40px);
+      }
   }
   &.city {
     display:inline-block;
@@ -47,6 +49,10 @@ $large-width: 600px;
 
 button {
   margin: 0px 35%;
+  margin-top:50px;
   width: 30%;
   height: 50px;
+}
+form {
+  margin-bottom:50px;
 }
