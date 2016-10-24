@@ -17,7 +17,7 @@ var Datum = React.createClass({
   render: function() {
     return this.props.data ? (
       <RB.FormGroup
-    className={this.props.data.id}
+      className={this.props.data.id + " date"}
       validationState={this.props.data.validationState}
       >
       <RB.ControlLabel>{this.props.data.label}</RB.ControlLabel>

@@ -11,7 +11,7 @@ var City = require('./partials/City');
 var AnmeldeFormular = React.createClass({
 
   getInitialState: function() {
-    return FormStore.getForm();
+    return {'forms':FormStore.getForm(),'buttonState':FormStore.getButtonState()};
   },
 
   componentDidMount: function() {
@@ -22,20 +22,20 @@ var AnmeldeFormular = React.createClass({
     FormStore.removeChangeListener(this._onChange);
   },
   _onChange: function() {
-    this.setState(FormStore.getForm());
+    this.setState({'forms':FormStore.getForm(),'buttonState':FormStore.getButtonState()});
   },
   render() {
     return (
       <div className="form-wrap" >
       <RB.Form  >
-      <Name data={this.state.lname} />
-      <Name data={this.state.fname} />
-      <Address street={this.state.street} number={this.state.number} />
-      <Plz data={this.state.plz} />
-      <City data={this.state.city} />
-      <Datum data={this.state.date1}/>
-      <Datum data={this.state.date2}/>
-      <Creditcard data={this.state.creditcard} />
+      <Name data={this.state.forms.lname} />
+      <Name data={this.state.forms.fname} />
+      <Address street={this.state.forms.street} number={this.state.forms.number} />
+      <Plz data={this.state.forms.plz} />
+      <City data={this.state.forms.city} />
+      <Datum data={this.state.forms.date1}/>
+      <Datum data={this.state.forms.date2}/>
+      <Creditcard data={this.state.forms.creditcard} />
       <SubmitButton data={{'value':'submit', 'disabled':false}} />
       </RB.Form>
       </div>

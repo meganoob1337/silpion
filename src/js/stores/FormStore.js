@@ -150,16 +150,26 @@ var FormStore = assign({}, EventEmitter.prototype, {
         }
       }
     submitAllowed = res;
-    console.log('validation required',res);
+  },
+  _isFormValid: function() {
+        var res = true;
+        for(var item in form) {
+          var field = form[item];
+          if(field.validationState != "success") {
+            res = false;
+          }
+        }
+      submitAllowed = res;
+  },
+  getButtonState: function() {
+    return submitAllowed;
   },
   _validateElement: function(id) {
     var field = form[id];
 
     FormStore._setValidationState(id,field.value ? validation.getValidationFunction(field.type)(field.value) : null) ;
-    console.log(field);
   },
   _setValidationState: function(id,state) {
-    console.log(id,state);
     form[id].validationState = state;
   }
 
@@ -173,14 +183,17 @@ AppDispatcher.register( function( payload ) {
 
         case AppConstants.UPDATE_ELEMENT:
           FormStore._updateField(payload.id,payload.value);
+          FormStore._isFormValid();
           FormStore._emitChange();
           break;
         case AppConstants.BLUR_ELEMENT:
           FormStore._validateElement(payload.id);
+          FormStore._isFormValid();
           FormStore._emitChange();
           break;
         case AppConstants.UPDATE_DATE:
           FormStore._updateDate(payload.id,payload.value);
+          FormStore._isFormValid();
           FormStore._emitChange();
           break;
         case AppConstants.SUBMIT_CLICKED:

@@ -15,7 +15,7 @@ var SubmitButton = React.createClass({
     }
     else {
 
-      return <button onClick={this.onClick}> {this.props.data.value}</button>
+      return <button className="btn btn-primary text-center" onClick={this.onClick}> {this.props.data.value}</button>
     }
 
   }

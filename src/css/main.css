@@ -1,1 +1,52 @@
-.form-group{margin:20px}
+$large-width: 600px;
+
+
+@mixin large-up {
+  @media (min-width: #{$large-width}) {
+    @content;
+  }
+}
+
+.form-group{
+  margin:20px;
+  &.name {
+    @include large-up {
+      display:inline-block;
+      width: calc(50% - 40px);
+    }
+  }
+  &.street {
+    @include large-up {
+
+      display:inline-block;
+      width: calc(50% - 40px);
+    }
+  }
+  &.number {
+    @include large-up {
+
+      display:inline-block;
+      width: calc(50% - 40px);
+      }
+  }
+  &.date {
+    display:inline-block;
+    width: calc(50% - 40px);
+
+  }
+  &.city {
+    display:inline-block;
+    width: calc(50% - 40px);
+  }
+  &.plz {
+    display:inline-block;
+    width: calc(50% - 40px);
+  }
+
+}
+
+button {
+  margin: 0px 35%;
+  width: 30%;
+  height: 50px;
+}

@@ -105,6 +105,6 @@ gulp
   // watch for source changes
   .task('watch', ['run'], function(){
     livereload.listen();
-    gulp.watch('src/**/*.*', ['dev']);
+    gulp.watch('src/**/*.*', ['dev','sass']);
 
   });

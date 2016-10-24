@@ -16,7 +16,7 @@ var Name = React.createClass({
     render: function(){
       return this.props.data ? (
           <RB.FormGroup
-    className={this.props.data.id}
+            className={this.props.data.id + ' name'}
             controlId={this.props.data.id}
             validationState={this.props.data.validationState}
 
