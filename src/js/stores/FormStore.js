@@ -3,7 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var AppConstants = require('../constants/AppConstants');
 var assign = require('object-assign');
 var validation = require('../utils/validation');
-
+var submitAllowed = false;
 var CHANGE_EVENT = 'change';
 var form = {
   'lname' : {
@@ -36,7 +36,7 @@ var form = {
     'validationState': null,
     'id'    : 'number',
     'placeholder' : 'Bitte Hausnummer eingeben',
-    'type' : 'number'
+    'type' : 'streetNumber'
   },
   'plz' : {
     'label' : 'PLZ: ',
@@ -128,19 +128,24 @@ var FormStore = assign({}, EventEmitter.prototype, {
     }
   },
   _postFormIfValid: function() {
-
-    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
-    xmlhttp.open("POST", "http://localhost:3000");
-    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlhttp.send(JSON.stringify(form));
+    if(submitAllowed) {
+      var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+      xmlhttp.open("POST", "http://localhost:3000");
+      xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xmlhttp.send(JSON.stringify(form));
+    }
   },
   _validate: function() {
+      var res = true;
       for(var item in form) {
         var field = form[item];
         FormStore._setValidationState(field.id,field.value ? validation.getValidationFunction(field.type)(field.value) : "error") ;
+        if(field.validationState != "success") {
+          res = false;
+        }
       }
-
-    console.log('validation required');
+    submitAllowed = res;
+    console.log('validation required',res);
   },
   _validateElement: function(id) {
     var field = form[id];
