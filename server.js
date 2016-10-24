@@ -13,7 +13,7 @@ app.post('/', function(req, res){
     });
     req.on("end", function() {
         console.log(JSON.parse(body));
-        fs.writeFile("received_forms/"+ new Date().toString(), body, function(err) {
+        fs.writeFile("received_forms/"+ new Date().toString() + ".json", body, function(err) {
             if(err) {
                 return console.log(err);
             }
