@@ -1,7 +1,5 @@
 var validator = require('string-validator');
 var numericTest = validator.isNumeric();
-var isAlpha = validator.isAlpha();
-var isStreetName = validator.matches('([a-zA-Z-]*)');
 var isCreditCard = validator.isCreditCard();
 var isEmpty = function(str) {if(str.length > 0){return false;} else {return true;}}
 var validationFunctions = {
@@ -18,20 +16,19 @@ var validationFunctions = {
     }
   },
   nameValidation: function(str) {
-    return isAlpha(str) ? "success" : "error" ;
+    return /^[\u00F0-\u02AFa-zA-Z]+[\ -\u00F0-\u02AFa-zA-Z]*[\u00F0-\u02AFa-zA-Z]+$/.test(str) ? "success" : "error" ;
   },
   streetValidation: function(str) {
-    return isStreetName(str) ? "success" : "error" ;
+    return /^[\u00F0-\u02AFa-zA-Z]+[\ -\u00F0-\u02AFa-zA-Z]*[\u00F0-\u02AFa-zA-Z]+$/.test(str) ? "success" : "error" ;
   },
   streetNrValidation: function(str) {
-    return numericTest(str) ? "success" : "error" ;
-
+    return /^\d*[a-zA-Z]?$/.test(str) ? "success" : "error" ;
   },
   creditcardValidation: function(str) {
     return isCreditCard(str) ?  "success" : "error" ;
   },
   numberValidation: function(str) {
-    return numericTest(str) ? "success" : "error" ;
+    return numericTest(str) ? str.length == 5 ? "success" : "error" : "error" ;
   },
   dateValidation: function(str) {
     return isEmpty(str) ? "error" : "success";
