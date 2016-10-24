@@ -5,6 +5,9 @@ var Name = require('./partials/Name');
 var Address = require('./partials/Address');
 var Datum = require('./partials/Datum');
 var SubmitButton = require('./partials/SubmitButton');
+var Creditcard = require('./partials/Creditcard');
+var Plz = require('./partials/Plz');
+var City = require('./partials/City');
 var AnmeldeFormular = React.createClass({
 
   getInitialState: function() {
@@ -28,7 +31,9 @@ var AnmeldeFormular = React.createClass({
       <Name data={this.state.lname} />
       <Name data={this.state.fname} />
       <Address street={this.state.street} number={this.state.number} />
-      <Name value="test" label="Test" id="nameTest" />
+      <Plz data={this.state.plz} />
+      <City data={this.state.city} />
+      <Creditcard data={this.state.creditcard} />
       <Datum data={this.state.date1}/>
       <Datum data={this.state.date2}/>
       <SubmitButton data={{'value':'submit', 'disabled':false}} />

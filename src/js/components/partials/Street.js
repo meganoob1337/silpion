@@ -5,8 +5,6 @@ var str = require('string-validator');
 
 var Street = React.createClass({
 
-  getValidationState: function() {
-  },
   handleBlur: function(e) {
     AppActions.blurElement(this.props.data.id);
   },
@@ -18,7 +16,7 @@ var Street = React.createClass({
     return this.props.data ? (
         <RB.FormGroup
           controlId={this.props.data.id}
-          validationState={this.getValidationState()}
+          validationState={this.props.data.validationState}
 
         >
           <RB.ControlLabel>{this.props.data.label}</RB.ControlLabel>

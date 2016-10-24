@@ -10,11 +10,17 @@ var Datum = React.createClass({
   handleChange: function(value) {
     AppActions.updateDate(this.props.data.id,value);
   },
+  handleBlur: function() {
+    AppActions.blurElement(this.props.data.id);
+  },
 
   render: function() {
-    return this.props.data ? (<RB.FormGroup>
+    return this.props.data ? (
+      <RB.FormGroup
+      validationState={this.props.data.validationState}
+      >
       <RB.ControlLabel>{this.props.data.label}</RB.ControlLabel>
-      <DatePicker  value={this.props.data.value} onChange={this.handleChange} />
+      <DatePicker  value={this.props.data.value} onChange={this.handleChange} onBlur={this.handleBlur}/>
     </RB.FormGroup>
   )
   : <div></div>

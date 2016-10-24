@@ -28,29 +28,53 @@ var form = {
     'validationState': null,
     'id'    : 'street',
     'placeholder' : 'Bitte Straße eingeben',
-    'type' : 'name'
+    'type' : 'streetName'
   },
   'number' : {
     'label' : 'Hausnummer: ',
     'value' : '',
     'validationState': null,
     'id'    : 'number',
-    'placeholder' : '',
+    'placeholder' : 'Bitte Hausnummer eingeben',
     'type' : 'number'
+  },
+  'plz' : {
+    'label' : 'PLZ: ',
+    'value' : '',
+    'validationState': null,
+    'id'    : 'number',
+    'placeholder' : 'Bitte PLZ eingeben',
+    'type' : 'number'
+  },
+  'city' : {
+    'label' : 'Stadt: ',
+    'value' : '',
+    'validationState': null,
+    'id'    : 'city',
+    'placeholder' : 'Bitte Stadt eingeben',
+    'type' : 'name'
+  },
+  'creditcard' : {
+    'label' : 'Kreditkarten Nummer: ',
+    'value' : '',
+    'validationState': null,
+    'id'    : 'creditcard',
+    'placeholder' : '',
+    'type' : 'creditcard'
   },
   'date1' : {
     'label' : 'Anreisedatum',
     'value' : '',
     'validationState': null,
     'id'    : 'date1',
-    'type' : 'name'
+    'type' : 'date'
   },
   'date2' : {
     'label' : 'Abreisedatum',
     'value' : '',
     'validationState': null,
     'id'    : 'date2',
-    'type' : 'name'
+    'type' : 'date'
   }
 
 };
@@ -113,16 +137,14 @@ var FormStore = assign({}, EventEmitter.prototype, {
   _validate: function() {
       for(var item in form) {
         var field = form[item];
-        field.validationState = field.value ? validation.numberValidation(field.value) : null;
-        form[item] = field;
+        FormStore._setValidationState(field.id,field.value ? validation.getValidationFunction(field.type)(field.value) : "error") ;
       }
 
     console.log('validation required');
   },
   _validateElement: function(id) {
-    //TODO set type from element
     var field = form[id];
-    
+
     FormStore._setValidationState(id,field.value ? validation.getValidationFunction(field.type)(field.value) : null) ;
     console.log(field);
   },
