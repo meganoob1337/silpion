@@ -7,6 +7,9 @@ var browserify = require('gulp-browserify'),
     plumber = require('gulp-plumber'),
     livereload = require('gulp-livereload'),
     babel = require('gulp-babel');
+    sass = require('gulp-sass');
+    autoprefixer = require('gulp-autoprefixer');
+
 
 
 gulp
@@ -77,8 +80,15 @@ gulp
     });
   })
 
+  gulp.task('sass', function () {
+	gulp.src('src/css/*')
+			.pipe(sass({ outputStyle: 'compressed'}).on('error', sass.logError))
+			.pipe(autoprefixer({browsers: ['last 2 versions', '> 5%']}))
+			.pipe(gulp.dest('./dist/css/'));
+});
+
   // opens the application in chrome
-  .task('open', function(){
+  gulp.task('open', function(){
     gulp
       .src('dist/index.html')
       .pipe(
@@ -88,7 +98,7 @@ gulp
 
 
   // build the application
-  .task('run', ['development', 'copy', 'connect', 'open'])
+  .task('run', ['development','sass', 'copy', 'connect', 'open'])
   .task('dev', ['development', 'copy'])
   .task('prod', ['production', 'copy'])
 
@@ -96,4 +106,5 @@ gulp
   .task('watch', ['run'], function(){
     livereload.listen();
     gulp.watch('src/**/*.*', ['dev']);
+
   });

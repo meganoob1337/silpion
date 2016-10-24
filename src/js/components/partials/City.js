@@ -16,6 +16,7 @@ var City = React.createClass({
     render: function(){
       return this.props.data ? (
           <RB.FormGroup
+    className={this.props.data.id}
             controlId={this.props.data.id}
             validationState={this.props.data.validationState}
 

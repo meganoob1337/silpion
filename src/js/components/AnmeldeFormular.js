@@ -33,9 +33,9 @@ var AnmeldeFormular = React.createClass({
       <Address street={this.state.street} number={this.state.number} />
       <Plz data={this.state.plz} />
       <City data={this.state.city} />
-      <Creditcard data={this.state.creditcard} />
       <Datum data={this.state.date1}/>
       <Datum data={this.state.date2}/>
+      <Creditcard data={this.state.creditcard} />
       <SubmitButton data={{'value':'submit', 'disabled':false}} />
       </RB.Form>
       </div>

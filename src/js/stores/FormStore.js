@@ -42,7 +42,7 @@ var form = {
     'label' : 'PLZ: ',
     'value' : '',
     'validationState': null,
-    'id'    : 'number',
+    'id'    : 'plz',
     'placeholder' : 'Bitte PLZ eingeben',
     'type' : 'number'
   },
@@ -59,7 +59,7 @@ var form = {
     'value' : '',
     'validationState': null,
     'id'    : 'creditcard',
-    'placeholder' : '',
+    'placeholder' : 'Bitte geben sie ihre Kreditkarten Nummer ein',
     'type' : 'creditcard'
   },
   'date1' : {
@@ -122,11 +122,15 @@ var FormStore = assign({}, EventEmitter.prototype, {
       if((today > valueDate) && !(valueDate > new Date(form['date1']['value']))){
         form[id]['value'] = today.toISOString();
       }
+      else if (!(today > valueDate) && !(valueDate > new Date(form['date1']['value']))) {
+        form[id]['value'] = new Date(form['date1']['value']).toISOString();
+      }
       else {
         form[id]['value'] = value;
       }
     }
   },
+
   _postFormIfValid: function() {
     if(submitAllowed) {
       var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
@@ -134,6 +138,7 @@ var FormStore = assign({}, EventEmitter.prototype, {
       xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
       xmlhttp.send(JSON.stringify(form));
     }
+    console.log(document);
   },
   _validate: function() {
       var res = true;

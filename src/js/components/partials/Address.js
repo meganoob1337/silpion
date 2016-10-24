@@ -6,13 +6,7 @@ var StrNumber = require('./StrNumber');
 
 var Address = React.createClass({
 
-  getValidationState: function() {
-    return "success";
-  },
 
-  handleChange: function(e) {
-    AppActions.updateElement(this.props.data.id,e.target.value);
-  },
 
   render: function(){
     return this.props ? (

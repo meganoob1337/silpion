@@ -24,6 +24,7 @@ var validationFunctions = {
     return isStreetName(str) ? "success" : "error" ;
   },
   streetNrValidation: function(str) {
+    return numericTest(str) ? "success" : "error" ;
 
   },
   creditcardValidation: function(str) {
